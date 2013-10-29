@@ -3,14 +3,18 @@ buildscript {
         maven { url "http://repo.spring.io/libs-snapshot" }
         mavenLocal()
     }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M4")
+    }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'gs-rest-service'
+    baseName = 'gs-consuming-rest-angularjs'
     version =  '0.1.0'
 }
 

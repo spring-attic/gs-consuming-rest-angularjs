@@ -1,31 +1,29 @@
-<#assign project_id="gs-rest-service">
+<#assign project_id="gs-consuming-rest-angularjs">
 <#assign spring_version="3.2.4.RELEASE">
 <#assign spring_boot_version="0.5.0.M4">
-This guide walks you through the process of creating a "hello world" [RESTful web service][u-rest] with Spring.
+This guide walks you through writing a simple AngularJS client that consumes a Spring MVC-based [RESTful web service][u-rest].
 
 What you'll build
 -----------------
 
-You'll build a service that will accept HTTP GET requests at:
+You'll build an AngularJS client that consumes a Spring-based RESTful web service.
+Specifically, the client will consume the service created in [Building a RESTful Web Servce][gs-rest-service].
+
+The AngularJS client will be accessed at:
+
+	http://localhost:8080/
+
+and will consume the service accepting requests at:
 
     http://localhost:8080/greeting
 
-and respond with a [JSON][u-json] representation of a greeting:
+The service will respond with a [JSON][u-json] representation of a greeting:
 
 ```json
 {"id":1,"content":"Hello, World!"}
 ```
 
-You can customize the greeting with an optional `name` parameter in the query string:
-
-    http://localhost:8080/greeting?name=User
-
-The `name` parameter value overrides the default value of "World" and is reflected in the response:
-
-```json
-{"id":1,"content":"Hello, User!"}
-```
-
+The client will render the ID and content into the DOM.
 
 What you'll need
 ----------------
@@ -50,58 +48,58 @@ Set up the project
 
 <@bootstrap_starter_pom_disclaimer/>
 
-
-<a name="initial"></a>
-Create a resource representation class
---------------------------------------
+Create the REST service
+-----------------------
 
 Now that you've set up the project and build system, you can create your web service.
+Because the primary focus of this guide is to create a client to consume a REST service and not how to create the service itself, this guide will only briefly show you the components necessary to create that service.
+For more details regarding the creation of the service, see [Building a RESTful Web Service][gs-rest-service]
 
-Begin the process by thinking about service interactions.
-
-The service will handle `GET` requests for `/greeting`, optionally with a `name` parameter in the query string. The `GET` request should return a `200 OK` response with JSON in the body that represents a greeting. It should look something like this:
-
-```json
-{
-    "id": 1,
-    "content": "Hello, World!"
-}
-```
-
-The `id` field is a unique identifier for the greeting, and `content` is the textual representation of the greeting.
-
-To model the greeting representation, you create a resource representation class. Provide a plain old java object with fields, constructors, and accessors for the `id` and `content` data:
+The service will need a class to represent the resource being served.
 
     <@snippet path="src/main/java/hello/Greeting.java" prefix="complete"/>
 
-> **Note:** As you see in steps below, Spring uses the [Jackson JSON][jackson] library to automatically marshal instances of type `Greeting` into JSON.
-
-Next you create the resource controller that will serve these greetings.
-
-
-Create a resource controller
-------------------------------
-
-In Spring's approach to building RESTful web services, HTTP requests are handled by a controller. These components are easily identified by the [`@Controller`][] annotation, and the `GreetingController` below handles `GET` requests for `/greeting` by returning a new instance of the `Greeting` class:
+It will also need a Spring MVC controller to handle requests and return the greeting resource:
 
     <@snippet path="src/main/java/hello/GreetingController.java" prefix="complete"/>
 
-This controller is concise and simple, but there's plenty going on under the hood. Let's break it down step by step.
+<a name="initial"></a>
+Create an AngularJS Controller
+------------------------------
 
-The `@RequestMapping` annotation ensures that HTTP requests to `/greeting` are mapped to the `greeting()` method.
+Now that the service classes are in place, you can create the AngularJS client.
+First, you'll create the AngularJS controller module that will consume the REST service: 
 
-> **Note:** The above example does not specify `GET` vs. `PUT`, `POST`, and so forth, because `@RequestMapping` maps all HTTP operations by default. Use `@RequestMapping(method=GET)` to narrow this mapping.
+    <@snippet path="src/main/resources/static/hello.js" prefix="complete"/>
 
-`@RequestParam` binds the value of the query string parameter `name` into the `name` parameter of the `greeting()` method. This query string parameter is not `required`; if it is absent in the request, the `defaultValue` of "World" is used.
+This controller module is represented as a simple JavaScript function that is given AngularJS' `$scope` and `$http` components.
+It uses the `$http` component to consume the REST service at "/greeting".
 
-The implementation of the method body creates and returns a new `Greeting` object with `id` and `content` attributes based on the next value from the `counter`, and formats the given `name` by using the greeting `template`.
+If successful, it will assign the JSON received to `$scope.greeting`, effectively setting a model object named "greeting".
+By setting that model object, AngularJS can bind it to the application page's DOM, rendering it for the user to see.
 
-A key difference between a traditional MVC controller and the RESTful web service controller above is the way that the HTTP response body is created. Rather than relying on a [view technology][u-view-templates] to perform server-side rendering of the greeting data to HTML, this RESTful web service controller simply populates and returns a `Greeting` object. The object data will be written directly to the HTTP response as JSON.
+Create the Application Page
+---------------------------
 
-To accomplish this, the [`@ResponseBody`][] annotation on the `greeting()` method tells Spring MVC that it does not need to render the greeting object through a server-side view layer, but that instead that the greeting object returned _is_ the response body, and should be written out directly.
+Next, you'll create the HTML page that will load the client into the user's web browser:
 
-The `Greeting` object must be converted to JSON. Thanks to Spring's HTTP message converter support, you don't need to do this conversion manually. Because [Jackson 2][jackson] is on the classpath, Spring's [`MappingJackson2HttpMessageConverter`][] is automatically chosen to convert the `Greeting` instance to JSON.
+    <@snippet path="src/main/resources/static/index.html" prefix="complete"/>
 
+For the most part, this is a basic HTML file.
+But there are a few noteworthy things to draw your attention to.
+
+First, notice that the page loads two script files.
+It loads the minified AngularJS library (angular.min.js) from a content delivery network (CDN) so that you don't have to download AngularJS and place it in your project.
+It also loads the controller code (hello.js) from the application's path.
+
+The AngularJS library enables several custom attributes for use with standard HTML tags.
+In index.html, two such attributes are in play:
+
+ * The `<html>` tag has the `ng-app` attribute to indicate that this page is an AngularJS applications.
+ * The `<div>` tag has the `ng-controller` attribute set to reference `Hello`, the controller module.
+
+Finally, with the two `<p>` tags, there are a couple of placeholders identified with double-curly-braces.
+These are placeholders reference the `id` and `content` properties of the `greeting` model object which was set upon successfully consuming the REST service.
 
 Make the application executable
 -------------------------------
@@ -124,35 +122,22 @@ The [`@EnableAutoConfiguration`][] annotation switches on reasonable default beh
 
 <@run_the_application_with_both module="service"/>
 
-Logging output is displayed. The service should be up and running within a few seconds.
+Logging output is displayed. The application should be up and running within a few seconds.
 
 
-Test the service
-----------------
+Test the client
+---------------
 
-Now that the service is up, visit <http://localhost:8080/greeting>, where you see:
+Now that the application is running is up, visit <http://localhost:8080>, where you see:
 
-```json
-{"id":1,"content":"Hello, World!"}
-```
+![Model data retrieved from the REST service is rendered into the DOM.](images/hello.png)
 
-Provide a `name` query string parameter with <http://localhost:8080/greeting?name=User>. Notice how the value of the `content` attribute changes from "Hello, World!" to "Hello User!":
-
-```json
-{"id":2,"content":"Hello, User!"}
-```
-
-This change demonstrates that the `@RequestParam` arrangement in `GreetingController` is working as expected. The `name` parameter has been given a default value of "World", but can always be explicitly overridden through the query string.
-
-Notice also how the `id` attribute has changed from `1` to `2`. This proves that you are working against the same `GreetingController` instance across multiple requests, and that its `counter` field is being incremented on each call as expected.
-
+The ID value will increment each time you refresh the page.
 
 Summary
 -------
 
-Congratulations! You've just developed a RESTful web service with Spring. 
-
-
+Congratulations! You've just developed an AngularJS client that consumes a Spring-based RESTful web service.
 
 <@u_rest/>
 <@u_json/>
@@ -168,4 +153,5 @@ Congratulations! You've just developed a RESTful web service with Spring.
 [`@ResponseBody`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html
 [`MappingJackson2HttpMessageConverter`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/converter/json/MappingJackson2HttpMessageConverter.html
 [`DispatcherServlet`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html
+[gs-rest-service]: /guides/gs-rest-service/
 
