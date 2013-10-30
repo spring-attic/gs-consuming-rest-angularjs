@@ -72,16 +72,16 @@ First, you'll create the AngularJS controller module that will consume the REST 
 
     <@snippet path="src/main/resources/static/hello.js" prefix="complete"/>
 
-This controller module is represented as a simple JavaScript function that is given AngularJS' `$scope` and `$http` components.
+This controller module is represented as a simple JavaScript function that is given AngularJS's `$scope` and `$http` components.
 It uses the `$http` component to consume the REST service at "/greeting".
 
-If successful, it will assign the JSON received to `$scope.greeting`, effectively setting a model object named "greeting".
+If successful, it will assign the JSON returned back from the service to `$scope.greeting`, effectively setting a model object named "greeting".
 By setting that model object, AngularJS can bind it to the application page's DOM, rendering it for the user to see.
 
 Create the Application Page
 ---------------------------
 
-Next, you'll create the HTML page that will load the client into the user's web browser:
+Next, you'll create the HTML page that will load the client into your web browser:
 
     <@snippet path="src/main/resources/static/index.html" prefix="complete"/>
 
@@ -112,9 +112,11 @@ Although it is possible to package this service as a traditional [WAR][u-war] fi
 
 The `main()` method defers to the [`SpringApplication`][] helper class, providing `Application.class` as an argument to its `run()` method. This tells Spring to read the annotation metadata from `Application` and to manage it as a component in the [Spring application context][u-application-context].
 
-The `@ComponentScan` annotation tells Spring to search recursively through the `hello` package and its children for classes marked directly or indirectly with Spring's [`@Component`][] annotation. This directive ensures that Spring finds and registers the `GreetingController`, because it is marked with `@Controller`, which in turn is a kind of `@Component` annotation.
+The `@ComponentScan` annotation tells Spring to search recursively through the `hello` package and its children for classes marked directly or indirectly with Spring's [`@Component`][] annotation. This directive ensures that Spring finds and registers the `GreetingController`, because it is marked with [`@RestController`][], which in turn is a kind of `@Component` annotation.
 
 The [`@EnableAutoConfiguration`][] annotation switches on reasonable default behaviors based on the content of your classpath. For example, because the application depends on the embeddable version of Tomcat (tomcat-embed-core.jar), a Tomcat server is set up and configured with reasonable defaults on your behalf. And because the application also depends on Spring MVC (spring-webmvc.jar), a Spring MVC [`DispatcherServlet`][] is configured and registered for you — no `web.xml` necessary! Auto-configuration is a powerful, flexible mechanism. See the [API documentation][`@EnableAutoConfiguration`] for further details.
+
+The static content of the application, `index.html` and `hello.js` will be served by the embedded Tomcat server because it is in a directory named "static" relative to the root of the classpath.
 
 <@build_an_executable_jar_subhead/>
 
@@ -146,7 +148,7 @@ Congratulations! You've just developed an AngularJS client that consumes a Sprin
 <@u_war/>
 <@u_tomcat/>
 <@u_application_context/>
-[`@Controller`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html
+[`@RestController`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html
 [`SpringApplication`]: http://docs.spring.io/spring-boot/docs/0.5.0.M3/api/org/springframework/boot/SpringApplication.html
 [`@EnableAutoConfiguration`]: http://docs.spring.io/spring-boot/docs/0.5.0.M3/api/org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
 [`@Component`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Component.html

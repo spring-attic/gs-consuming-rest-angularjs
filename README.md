@@ -157,19 +157,18 @@ It will also need a Spring MVC controller to handle requests and return the gree
 package hello;
 
 import java.util.concurrent.atomic.AtomicLong;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class GreetingController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/greeting")
-    public @ResponseBody Greeting greeting(
+    public Greeting greeting(
             @RequestParam(value="name", required=false, defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(),
                             String.format(template, name));
@@ -194,16 +193,16 @@ function Hello($scope, $http) {
 }
 ```
 
-This controller module is represented as a simple JavaScript function that is given AngularJS' `$scope` and `$http` components.
+This controller module is represented as a simple JavaScript function that is given AngularJS's `$scope` and `$http` components.
 It uses the `$http` component to consume the REST service at "/greeting".
 
-If successful, it will assign the JSON received to `$scope.greeting`, effectively setting a model object named "greeting".
+If successful, it will assign the JSON returned back from the service to `$scope.greeting`, effectively setting a model object named "greeting".
 By setting that model object, AngularJS can bind it to the application page's DOM, rendering it for the user to see.
 
 Create the Application Page
 ---------------------------
 
-Next, you'll create the HTML page that will load the client into the user's web browser:
+Next, you'll create the HTML page that will load the client into your web browser:
 
 `src/main/resources/static/index.html`
 ```html
@@ -266,9 +265,11 @@ public class Application {
 
 The `main()` method defers to the [`SpringApplication`][] helper class, providing `Application.class` as an argument to its `run()` method. This tells Spring to read the annotation metadata from `Application` and to manage it as a component in the [Spring application context][u-application-context].
 
-The `@ComponentScan` annotation tells Spring to search recursively through the `hello` package and its children for classes marked directly or indirectly with Spring's [`@Component`][] annotation. This directive ensures that Spring finds and registers the `GreetingController`, because it is marked with `@Controller`, which in turn is a kind of `@Component` annotation.
+The `@ComponentScan` annotation tells Spring to search recursively through the `hello` package and its children for classes marked directly or indirectly with Spring's [`@Component`][] annotation. This directive ensures that Spring finds and registers the `GreetingController`, because it is marked with [`@RestController`][], which in turn is a kind of `@Component` annotation.
 
 The [`@EnableAutoConfiguration`][] annotation switches on reasonable default behaviors based on the content of your classpath. For example, because the application depends on the embeddable version of Tomcat (tomcat-embed-core.jar), a Tomcat server is set up and configured with reasonable defaults on your behalf. And because the application also depends on Spring MVC (spring-webmvc.jar), a Spring MVC [`DispatcherServlet`][] is configured and registered for you — no `web.xml` necessary! Auto-configuration is a powerful, flexible mechanism. See the [API documentation][`@EnableAutoConfiguration`] for further details.
+
+The static content of the application, `index.html` and `hello.js` will be served by the embedded Tomcat server because it is in a directory named "static" relative to the root of the classpath.
 
 ### Build an executable JAR
 
@@ -357,7 +358,7 @@ Congratulations! You've just developed an AngularJS client that consumes a Sprin
 [u-war]: /understanding/WAR
 [u-tomcat]: /understanding/Tomcat
 [u-application-context]: /understanding/application-context
-[`@Controller`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html
+[`@RestController`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html
 [`SpringApplication`]: http://docs.spring.io/spring-boot/docs/0.5.0.M3/api/org/springframework/boot/SpringApplication.html
 [`@EnableAutoConfiguration`]: http://docs.spring.io/spring-boot/docs/0.5.0.M3/api/org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
 [`@Component`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Component.html
