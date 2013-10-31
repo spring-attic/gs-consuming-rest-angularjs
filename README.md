@@ -49,7 +49,7 @@ To **skip the basics**, do the following:
  - [Download][zip] and unzip the source repository for this guide, or clone it using [Git][u-git]:
 `git clone https://github.com/spring-guides/gs-consuming-rest-angularjs.git`
  - cd into `gs-consuming-rest-angularjs/initial`.
- - Jump ahead to [Create a resource representation class](#initial).
+ - Jump ahead to [Create an AngularJS Controller](#initial).
 
 **When you're finished**, you can check your results against the code in `gs-consuming-rest-angularjs/complete`.
 [zip]: https://github.com/spring-guides/gs-consuming-rest-angularjs/archive/master.zip
@@ -206,6 +206,7 @@ Next, you'll create the HTML page that will load the client into your web browse
 
 `src/main/resources/static/index.html`
 ```html
+<!doctype html>
 <html ng-app>
 	<head>
 		<title>Hello AngularJS</title>
