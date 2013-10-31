@@ -32,7 +32,7 @@ What you'll need
  - <@prereq_editor_jdk_buildtools/>
 
 
-## <@how_to_complete_this_guide/>
+## <@how_to_complete_this_guide jump_ahead='Create an AngularJS Controller'/>
 
 
 <a name="scratch"></a>
