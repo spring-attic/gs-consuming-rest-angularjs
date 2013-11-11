@@ -27,27 +27,12 @@ What you'll need
  - A modern web browser
  - An internet connection
 
-How to complete this guide
---------------------------
-
-Like all Spring's [Getting Started guides](/guides/gs), you can start from scratch and complete each step, or you can bypass basic setup steps that are already familiar to you. Either way, you end up with working code.
-
-To **start from scratch**, move on to [Create an AngularJS Controller](#scratch). When you are finished, you can compare your code with the sample code.
-
-To **run the sample code**, do the following:
-
- - [Download][zip] and unzip the source repository for this guide, or clone it using [Git][u-git]:
-`git clone https://github.com/spring-guides/${project_id}.git`
- - cd into `${project_id}/complete`.
- - Jump ahead to [Run the client](#run).
-
-<a name="scratch"></a>
 Create an AngularJS Controller
 ------------------------------
 
 First, you will create the AngularJS controller module that will consume the REST service: 
 
-    <@snippet path="src/main/resources/static/hello.js" prefix="complete"/>
+    <@snippet path="hello.js" prefix="complete"/>
 
 This controller module is represented as a simple JavaScript function that is given AngularJS's `$scope` and `$http` components.
 It uses the `$http` component to consume the REST service at "/greeting".
@@ -60,7 +45,7 @@ Create the Application Page
 
 Next, you'll create the HTML page that will load the client into your web browser:
 
-    <@snippet path="src/main/resources/static/index.html" prefix="complete"/>
+    <@snippet path="index.html" prefix="complete"/>
 
 For the most part, this is a basic HTML file.
 But there are a few noteworthy things to draw your attention to.
@@ -78,8 +63,7 @@ In index.html, two such attributes are in play:
 Finally, with the two `<p>` tags, there are a couple of placeholders identified with double-curly-braces.
 These are placeholders reference the `id` and `content` properties of the `greeting` model object which was set upon successfully consuming the REST service.
 
-<a name="test"></a>
-Test the client
+Run the client
 ---------------
 
 You can now open the `index.html` page in your browser, where you see: 

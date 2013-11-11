@@ -26,30 +26,15 @@ What you'll need
  - A modern web browser
  - An internet connection
 
-How to complete this guide
---------------------------
-
-Like all Spring's [Getting Started guides](/guides/gs), you can start from scratch and complete each step, or you can bypass basic setup steps that are already familiar to you. Either way, you end up with working code.
-
-To **start from scratch**, move on to [Create an AngularJS Controller](#scratch). When you are finished, you can compare your code with the sample code.
-
-To **run the sample code**, do the following:
-
- - [Download][zip] and unzip the source repository for this guide, or clone it using [Git][u-git]:
-`git clone https://github.com/spring-guides/gs-consuming-rest-angularjs.git`
- - cd into `gs-consuming-rest-angularjs/complete`.
- - Jump ahead to [Run the client](#run).
-
-<a name="scratch"></a>
 Create an AngularJS Controller
 ------------------------------
 
 First, you will create the AngularJS controller module that will consume the REST service: 
 
-`src/main/resources/static/hello.js`
+`hello.js`
 ```js
 function Hello($scope, $http) {
-    $http.get('http://rest-hello.cfapps.io/greeting').
+    $http.get('http://rest-service.guides.spring.io/greeting').
         success(function(data) {
             $scope.greeting = data;
         });
@@ -67,7 +52,7 @@ Create the Application Page
 
 Next, you'll create the HTML page that will load the client into your web browser:
 
-`src/main/resources/static/index.html`
+`index.html`
 ```html
 <!doctype html>
 <html ng-app>
@@ -102,8 +87,7 @@ In index.html, two such attributes are in play:
 Finally, with the two `<p>` tags, there are a couple of placeholders identified with double-curly-braces.
 These are placeholders reference the `id` and `content` properties of the `greeting` model object which was set upon successfully consuming the REST service.
 
-<a name="test"></a>
-Test the client
+Run the client
 ---------------
 
 You can now open the `index.html` page in your browser, where you see: 
