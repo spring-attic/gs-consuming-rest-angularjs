@@ -26,12 +26,13 @@ What you'll need
  - A modern web browser
  - An internet connection
 
+<a name="scratch"></a>
 Create an AngularJS Controller
 ------------------------------
 
 First, you will create the AngularJS controller module that will consume the REST service: 
 
-`hello.js`
+`public/hello.js`
 ```js
 function Hello($scope, $http) {
     $http.get('http://rest-service.guides.spring.io/greeting').
@@ -50,9 +51,9 @@ By setting that model object, AngularJS can bind it to the application page's DO
 Create the Application Page
 ---------------------------
 
-Next, you'll create the HTML page that will load the client into your web browser:
+Now that you have an AngularJS controller, you will create the HTML page that will load the controller into the user's web browser:
 
-`index.html`
+`public/index.html`
 ```html
 <!doctype html>
 <html ng-app>
@@ -71,11 +72,14 @@ Next, you'll create the HTML page that will load the client into your web browse
 </html>
 ```
 
-For the most part, this is a basic HTML file.
-But there are a few noteworthy things to draw your attention to.
+Note the following two script tags within the `head` section.
 
-First, notice that the page loads two script files.
-It loads the minified AngularJS library (angular.min.js) from a content delivery network (CDN) so that you don't have to download AngularJS and place it in your project.
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script src="hello.js"></script>
+```
+
+The first script tag lods the minified AngularJS library (angular.min.js) from a content delivery network (CDN) so that you don't have to download AngularJS and place it in your project.
 It also loads the controller code (hello.js) from the application's path.
 
 The AngularJS library enables several custom attributes for use with standard HTML tags.
@@ -84,14 +88,26 @@ In index.html, two such attributes are in play:
  * The `<html>` tag has the `ng-app` attribute to indicate that this page is an AngularJS application.
  * The `<div>` tag has the `ng-controller` attribute set to reference `Hello`, the controller module.
 
-Finally, with the two `<p>` tags, there are a couple of placeholders identified with double-curly-braces.
-These are placeholders reference the `id` and `content` properties of the `greeting` model object which was set upon successfully consuming the REST service.
+Also note the two `<p>` tags which use placeholders (identified by double-curly-braces).
 
+```html
+<p>The ID is {{greeting.id}}</p>
+<p>The content is {{greeting.content}}</p>
+```
+
+The placeholders reference the `id` and `content` properties of the `greeting` model object which will be set upon successfully consuming the REST service.
+
+<a name="run"></a>
 Run the client
 ---------------
 
-You can now open the `index.html` page in your browser, where you see: 
+You can now run the app using the Spring Boot CLI (Command Line Interface). Spring Boot includes an embedded Tomcat server, which offers a simple approach to serving web content. See [Building an Application with Spring Boot][gs-spring-boot] for more information about installing and using the CLI.
 
+```sh
+$ spring run app.groovy
+```
+
+Once the app starts, open http://localhost:8080 in your browser, where you see:
 ![Model data retrieved from the REST service is rendered into the DOM.](images/hello.png)
 
 The ID value will increment each time you refresh the page.
@@ -101,6 +117,9 @@ Summary
 
 Congratulations! You've just developed an AngularJS client that consumes a Spring-based RESTful web service.
 
+[gs-rest-service]: /guides/gs/rest-service/
+[gs-spring-boot]: /guides/gs/spring-boot/
+[zip]: https://github.com/spring-guides/gs-consuming-rest-angularjs/archive/master.zip
 [u-rest]: /understanding/REST
 [u-json]: /understanding/JSON
 [u-git]: /understanding/Git
