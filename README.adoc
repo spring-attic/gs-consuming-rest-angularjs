@@ -1,5 +1,5 @@
 :spring_boot_version: 0.5.0.M6
-:gs-rest-service: link:/guides/gs/rest-service/
+:gs-rest-service-cors: link:/guides/gs/rest-service-cors/
 :gs-spring-boot: link:/guides/gs/spring-boot/
 :toc:
 :icons: font
@@ -10,7 +10,7 @@ This guide walks you through writing a simple AngularJS client that consumes a S
 == What you'll build
 
 You will build an AngularJS client that consumes a Spring-based RESTful web service.
-Specifically, the client will consume the service created in {gs-rest-service}[Building a RESTful Web Servce].
+Specifically, the client will consume the service created in {gs-rest-service-cors}[Building a RESTful Web Service with CORS].
 
 The AngularJS client will be accessed by opening the `index.html` file in your browser, and will consume the service accepting requests at:
 
