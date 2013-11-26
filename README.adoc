@@ -91,6 +91,16 @@ The placeholders reference the `id` and `content` properties of the `greeting` m
 
 You can now run the app using the Spring Boot CLI (Command Line Interface). Spring Boot includes an embedded Tomcat server, which offers a simple approach to serving web content. See {gs-spring-boot}[Building an Application with Spring Boot] for more information about installing and using the CLI.
 
+In order to serve static content from Spring Boot's embedded Tomcat server, you'll also need to create a minimal amount of web application code so that Spring Boot knows to start Tomcat. The following `app.groovy` script is sufficient for letting Spring Boot know that you want to run Tomcat:
+
+`app.groovy`
+[source,groovy]
+----
+include::complete/app.groovy[]
+----
+
+To run the app using the Spring Boot CLI:
+
 ----
 spring run app.groovy
 ----
