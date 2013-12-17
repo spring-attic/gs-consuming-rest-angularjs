@@ -7,10 +7,9 @@ echo "Y" | gvm install springboot
 
 cd ../complete
 spring run app.groovy &
-PID=$!
-sleep 10
+sleep 20
 curl -s http://localhost:8080 > actual.html
-kill -9 $PID
+killall "java"
 
 echo "Let's look at the actual results: `cat actual.html`"
 echo "And compare it to: `cat ../test/expected.html`"
