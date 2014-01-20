@@ -1,6 +1,6 @@
 ---
 tags: [JavaScript, rest]
-projects: []
+projects: [spring-framework]
 ---
 :spring_boot_version: 0.5.0.M6
 :gs-rest-service-cors: link:/guides/gs/rest-service-cors/
