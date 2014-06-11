@@ -2,7 +2,7 @@
 tags: [JavaScript, rest]
 projects: [spring-framework]
 ---
-:spring_boot_version: 1.0.2.RELEASE
+:spring_boot_version: 1.1.0.RELEASE
 :gs-rest-service-cors: link:/guides/gs/rest-service-cors/
 :gs-spring-boot: link:/guides/gs/spring-boot/
 :toc:
