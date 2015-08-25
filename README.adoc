@@ -118,3 +118,6 @@ The ID value will increment each time you refresh the page.
 == Summary
 
 Congratulations! You've just developed an AngularJS client that consumes a Spring-based RESTful web service.
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+
