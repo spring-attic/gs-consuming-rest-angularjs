@@ -1,9 +1,10 @@
 cd $(dirname $0)
 
-curl -s get.gvmtool.net | bash
+curl -s get.sdkman.io | bash
 sleep 10
-[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
-echo "Y" | gvm install springboot
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+echo "Y" | sdk install springboot 1.3.0.RELEASE
+sdk use springboot 1.3.0.RELEASE
 
 cd ../complete
 spring run app.groovy &
