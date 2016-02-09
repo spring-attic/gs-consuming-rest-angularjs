@@ -30,7 +30,7 @@ The service will respond with a link:/understanding/JSON[JSON] representation of
 The AngularJS client will render the ID and content into the DOM.
 
 NOTE: The service at rest-service.guides.spring.io is running the code from the 
-link:/guides/gs/gs-rest-service-cors[CORS guide] with small modifications:
+{gs-rest-service-cors}[CORS guide] with small modifications:
 there is open access to the `/greeting` endpoint because the app is using 
 `@CrossOrigin` with no domain.
 
