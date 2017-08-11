@@ -29,9 +29,9 @@ The service will respond with a link:/understanding/JSON[JSON] representation of
 
 The AngularJS client will render the ID and content into the DOM.
 
-NOTE: The service at rest-service.guides.spring.io is running the code from the 
+NOTE: The service at rest-service.guides.spring.io is running the code from the
 {gs-rest-service-cors}[CORS guide] with small modifications:
-there is open access to the `/greeting` endpoint because the app is using 
+there is open access to the `/greeting` endpoint because the app is using
 `@CrossOrigin` with no domain.
 
 == What you'll need
@@ -44,7 +44,7 @@ there is open access to the `/greeting` endpoint because the app is using
 [[scratch]]
 == Create an AngularJS Controller
 
-First, you will create the AngularJS controller module that will consume the REST service: 
+First, you will create the AngularJS controller module that will consume the REST service:
 
 `public/hello.js`
 [source,js]
@@ -124,5 +124,23 @@ The ID value will increment each time you refresh the page.
 
 Congratulations! You've just developed an AngularJS client that consumes a Spring-based RESTful web service.
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+== See Also
 
+The following guides may also be helpful:
+
+* https://spring.io/guides/gs/rest-service/[Building a RESTful Web Service]
+* https://spring.io/guides/gs/consuming-rest/[Consuming a RESTful Web Service]
+* https://spring.io/guides/gs/consuming-rest-jquery/[Consuming a RESTful Web Service with jQuery]
+* https://spring.io/guides/gs/consuming-rest-restjs/[Consuming a RESTful Web Service with rest.js]
+* https://spring.io/guides/gs/accessing-gemfire-data-rest/[Accessing GemFire Data with REST]
+* https://spring.io/guides/gs/accessing-mongodb-data-rest/[Accessing MongoDB Data with REST]
+* https://spring.io/guides/gs/accessing-data-mysql/[Accessing data with MySQL]
+* https://spring.io/guides/gs/accessing-data-rest/[Accessing JPA Data with REST]
+* https://spring.io/guides/gs/accessing-neo4j-data-rest/[Accessing Neo4j Data with REST]
+* https://spring.io/guides/gs/securing-web/[Securing a Web Application]
+* https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot]
+* https://spring.io/guides/gs/testing-restdocs/[Creating API Documentation with Restdocs]
+* https://spring.io/guides/gs/rest-service-cors/[Enabling Cross Origin Requests for a RESTful Web Service]
+* https://spring.io/guides/gs/rest-hateoas/[Building a Hypermedia-Driven RESTful Web Service]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
