@@ -1,6 +1,7 @@
 :spring_boot_version: 1.5.10.RELEASE
 :gs-rest-service-cors: link:/guides/gs/rest-service-cors/
 :gs-spring-boot: link:/guides/gs/spring-boot/
+:images: https://raw.githubusercontent.com/spring-guides/gs-consuming-rest-angularjs/master/images
 :toc:
 :icons: font
 :source-highlighter: prettify
@@ -112,7 +113,7 @@ spring run app.groovy
 
 Once the app starts, open http://localhost:8080 in your browser, where you see:
 
-image::images/hello.png[Model data retrieved from the REST service is rendered into the DOM.]
+image::{images}/hello.png[Model data retrieved from the REST service is rendered into the DOM.]
 
 The ID value will increment each time you refresh the page.
 
