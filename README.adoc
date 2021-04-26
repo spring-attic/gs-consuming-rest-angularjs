@@ -1,7 +1,7 @@
 :spring_boot_version: 1.5.10.RELEASE
 :gs-rest-service-cors: link:/guides/gs/rest-service-cors/
 :gs-spring-boot: link:/guides/gs/spring-boot/
-:images: https://raw.githubusercontent.com/spring-guides/gs-consuming-rest-angularjs/master/images
+:images: https://raw.githubusercontent.com/spring-guides/gs-consuming-rest-angularjs/main/images
 :toc:
 :icons: font
 :source-highlighter: prettify
@@ -140,4 +140,4 @@ The following guides may also be helpful:
 * https://spring.io/guides/gs/rest-service-cors/[Enabling Cross Origin Requests for a RESTful Web Service]
 * https://spring.io/guides/gs/rest-hateoas/[Building a Hypermedia-Driven RESTful Web Service]
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/footer.adoc[]
