@@ -11,10 +11,27 @@ pipeline {
 	}
 
 	stages {
+		stage('Publish OpenJDK 8 + Spring CLI') {
+			when {
+				changeset "ci/Dockerfile"
+			}
+			agent any
+
+			steps {
+				script {
+					def image = docker.build("springci/gs-consuming-rest-angularjs-spring-cli", "ci/")
+					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
+						image.push()
+					}
+				}
+			}
+		}
+
+
 		stage("test: baseline (jdk8)") {
 			agent {
 				docker {
-					image 'adoptopenjdk/openjdk8:latest'
+					image 'springci/gs-consuming-rest-angularjs-spring-cli:latest'
 					args '-v $HOME/.m2:/tmp/jenkins-home/.m2'
 				}
 			}
