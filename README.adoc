@@ -1,4 +1,4 @@
-:spring_boot_version: 1.5.10.RELEASE
+:spring_boot_version: current
 :gs-rest-service-cors: link:/guides/gs/rest-service-cors/
 :gs-spring-boot: link:/guides/gs/spring-boot/
 :images: https://raw.githubusercontent.com/spring-guides/gs-consuming-rest-angularjs/main/images
