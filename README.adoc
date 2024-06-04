@@ -6,6 +6,9 @@
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-consuming-rest-angularjs
+
+# This repository is no longer maintained.
+
 This guide walks you through writing a simple AngularJS client that consumes a Spring MVC-based link:/understanding/REST[RESTful web service].
 
 == What you'll build
